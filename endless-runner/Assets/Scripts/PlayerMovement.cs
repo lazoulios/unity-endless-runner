@@ -90,7 +90,6 @@ public class PlayerMovement : MonoBehaviour
             gameOver = true;
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 1);
-            playerAnim.gameObject.GetComponent<Animator>().enabled = false;
         }
     }
 }
