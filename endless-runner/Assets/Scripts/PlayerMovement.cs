@@ -5,6 +5,7 @@ using UnityEngine.Diagnostics;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameManager manager;
     public bool gameOver = false;
     public float playerSpeed = 8;
     public float jumpForce = 10;
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        manager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         playerAnim = GetComponent<Animator>();
     }
 
@@ -86,10 +88,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
+            manager.GameOver();
             Debug.Log("Game Over");
             gameOver = true;
             playerAnim.SetBool("Death_b", true);
-            playerAnim.SetInteger("DeathType_int", 1);
+            playerAnim.SetInteger("DeathType_int", 1);            
         }
     }
 }
