@@ -5,27 +5,37 @@ using UnityEngine.Diagnostics;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float playerSpeed = 2;
+    public bool gameOver = false;
+    public float playerSpeed = 8;
     public float jumpForce = 10;
     public bool isJumping = false;
     public bool comingDown = false;
     public GameObject playerObject;
+    private Animator playerAnim;
 
     void Start()
     {
+        playerAnim = GetComponent<Animator>();
     }
 
     void Update()
     {
         //Foward Movement
-        transform.Translate(Vector3.forward * Time.deltaTime * playerSpeed, Space.World);
+        if (gameOver == false)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * playerSpeed, Space.World);
+        }
+        else
+        {
+            transform.position = transform.position;
+        }
         //Jump Movement
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) && gameOver == false)
         {
             if (isJumping == false)
             {
                 isJumping = true;
-                //playerObject.GetComponent<Animator>().Play("Jump");
+                playerAnim.SetTrigger("Jump_trig");
                 StartCoroutine(JumpSequence());
 
             }
@@ -70,5 +80,17 @@ public class PlayerMovement : MonoBehaviour
         isJumping = false;
         transform.position = Utils.ChangeY(transform.position, 0.5f);
         //playerObject.GetComponent<Animator>().Play("Run");
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log("Game Over");
+            gameOver = true;
+            playerAnim.SetBool("Death_b", true);
+            playerAnim.SetInteger("DeathType_int", 1);
+            playerAnim.gameObject.GetComponent<Animator>().enabled = false;
+        }
     }
 }
