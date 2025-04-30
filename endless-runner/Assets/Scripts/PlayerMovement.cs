@@ -22,6 +22,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (transform.position.x > 1 || transform.position.x < -1)
+        {
+            transform.position = Utils.ChangeX(transform.position, 0);
+        }
         //Foward Movement
         if (gameOver == false)
         {
