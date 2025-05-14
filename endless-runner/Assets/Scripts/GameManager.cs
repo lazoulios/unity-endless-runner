@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI congratulationsText;
     public TextMeshProUGUI scoreText;
+
     public Image gameOverPanel;
     private int score;
 
