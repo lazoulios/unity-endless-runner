@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public bool comingDown = false;
     public GameObject playerObject;
     private Animator playerAnim;
+    public new AudioManager audio;
 
     void Start()
     {
@@ -96,7 +97,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Game Over");
             gameOver = true;
             playerAnim.SetBool("Death_b", true);
-            playerAnim.SetInteger("DeathType_int", 1);            
+            playerAnim.SetInteger("DeathType_int", 1);
+            audio.stopMusic();
         }
     }
 
