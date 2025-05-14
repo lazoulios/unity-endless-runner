@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     public void Congratulations()
     {
+        gameOverPanel.gameObject.SetActive(true);
         congratulationsText.gameObject.SetActive(true);
     }
 

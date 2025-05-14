@@ -99,4 +99,16 @@ public class PlayerMovement : MonoBehaviour
             playerAnim.SetInteger("DeathType_int", 1);            
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            manager.Congratulations();
+            Debug.Log("Congratulations");
+            gameOver = true;
+            playerObject.GetComponent<Animator>().Play("Idle");
+            playerObject.GetComponent<Animator>().speed = 0;
+        }
+    }
 }
